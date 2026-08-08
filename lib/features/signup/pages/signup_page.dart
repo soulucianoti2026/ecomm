@@ -1,0 +1,144 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_application_1/features/signup/controllers/signup_controller.dart';
+import 'package:flutter_application_1/shared/app_text_style.dart';
+import 'package:flutter_application_1/shared/widgets/app_check_box.dart';
+import 'package:flutter_application_1/shared/widgets/app_elevated_button.dart';
+import 'package:flutter_application_1/shared/widgets/app_text_field.dart';
+
+class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
+
+  static const String route = '/signup';
+
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+  SignupController signupController = SignupController();
+
+  @override
+  initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Cadastro')),
+
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: SizedBox(
+            height:
+                MediaQuery.of(context).size.height -
+                MediaQuery.of(context).padding.top,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(height: 24),
+                  Center(
+                    child: Text(
+                      'Criar uma conta',
+                      style: AppTextStyle.title,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Center(
+                    child: Text(
+                      'Insira seus dados para iniciar suas compras',
+                      style: TextStyle(color: Colors.grey),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  SizedBox(height: 32),
+                  AppTextField(
+                    hintText: 'email@dominio.com',
+                    onChanged: (value) {
+                      setState(() {
+                        signupController.setEmail(value);
+                      });
+                    },
+                  ),
+                  SizedBox(height: 16),
+                  AppTextField(hintText: 'nome',
+                  onChanged: (value){
+                    setState(() {
+                      SignupController.setNome(value);
+                    });
+                  }),
+                  SizedBox(height: 16),
+                  AppTextField(
+                    hintText: 'senha',
+                    obscureText: true,
+                    onChanged: (value) {
+                      setState(() {
+                        signupController.setSenha(value);
+                      });
+                    },
+                  ),
+
+                  SizedBox(height: 16),
+                  AppTextField(hintText: 'confirmar senha', 
+                  onChanged: (value) {
+                    SignupController.setConfirmarSenha(value);
+                  },
+                  obscureText: true,
+                  ),
+                  Spacer(),
+                  Row(
+                    children: [
+                    AppCheckBox(value: true),
+                  onChanged: (value) {
+                    SignupController.changeActivecheckbox();
+                  }],
+                  ),
+                
+                  ),
+                  ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      print('CLIQUEI NA LINHA');
+                    },
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        style: TextStyle(color: Colors.grey),
+                        children: [
+                          TextSpan(
+                            text:
+                                'Ao clicar em continuar, você concorda com os nossos\n',
+                          ),
+                          TextSpan(
+                            text: 'Termos de Serviço ',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          TextSpan(text: 'e com a '),
+                          TextSpan(
+                            text: 'Politica de Privacidade',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  AppElevatedButton(
+                    label: 'Continuar',
+                    onPressed: signupController.isActiveButton? () {} : null,
+                    type: ButtonType.filled,
+                  ),
+                  SizedBox(height: 16),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
