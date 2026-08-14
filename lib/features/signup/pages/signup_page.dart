@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/signup/controllers/signup_controller.dart';
 import 'package:flutter_application_1/shared/app_text_style.dart';
+import 'package:flutter_application_1/shared/widgets/__password_rule.dart';
 import 'package:flutter_application_1/shared/widgets/app_check_box.dart';
 import 'package:flutter_application_1/shared/widgets/app_elevated_button.dart';
 import 'package:flutter_application_1/shared/widgets/app_text_field.dart';
@@ -25,7 +26,7 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Cadastro')),
+      appBar: AppBar(title: const Text('')),
 
       body: SafeArea(
         child: SingleChildScrollView(
@@ -64,12 +65,14 @@ class _SignupPageState extends State<SignupPage> {
                     },
                   ),
                   SizedBox(height: 16),
-                  AppTextField(hintText: 'nome',
-                  onChanged: (value){
-                    setState(() {
-                      SignupController.setNome(value);
-                    });
-                  }),
+                  AppTextField(
+                    hintText: 'nome',
+                    onChanged: (value) {
+                      setState(() {
+                        signupController.setNome(value);
+                      });
+                    },
+                  ),
                   SizedBox(height: 16),
                   AppTextField(
                     hintText: 'senha',
@@ -82,23 +85,32 @@ class _SignupPageState extends State<SignupPage> {
                   ),
 
                   SizedBox(height: 16),
-                  AppTextField(hintText: 'confirmar senha', 
-                  onChanged: (value) {
-                    SignupController.setConfirmarSenha(value);
-                  },
-                  obscureText: true,
+                  AppTextField(
+                    hintText: 'confirmar senha',
+                    onChanged: (value) {
+                      setState(() {
+                        signupController.setConfirmarSenha(value);
+                      });
+                    },
+                    obscureText: true,
                   ),
+                  const SizedBox(height: 16),
+                  PasswordRules(password: signupController.senha, confirmPassword: signupController.confirmarSenha,),
                   Spacer(),
                   Row(
                     children: [
-                    AppCheckBox(value: true),
-                  onChanged: (value) {
-                    SignupController.changeActivecheckbox();
-                  }],
-                  ),
-                
-                  ),
-                  ),
+                      AppCheckBox(
+                        value: signupController.isActiveCheckBox,
+                        onChanged: (_) {
+                          setState(() {
+                            signupController.changeActiveCheckBox();
+                          });
+                        },
+                      ),
+                      const Expanded(
+                        child: Text('Aceito os termos e condições de uso'),
+                      ),
+                    ],
                   ),
                   GestureDetector(
                     onTap: () {

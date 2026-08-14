@@ -1,10 +1,12 @@
 class LoginController {
-  final RegExp _emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+  final RegExp _emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
   final RegExp _senhaRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
   bool isActiveCheckBox = false;
   String email = '';
   String senha = '';
   bool isActiveButton = false;
+  
+
   
 String? get emailError {
 if (email.trim().isEmpty || _emailRegex.hasMatch(email.trim())) return null;
