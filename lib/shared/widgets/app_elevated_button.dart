@@ -23,7 +23,15 @@ class AppElevatedButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: _getStyle(),
-      child: Text(label),
+      child: isloading? 
+              Padding(
+              padding: const EdgeInsets.all(8),
+              width: 20,
+              height: 20,
+              child: CircularProgressIndicator(color: AppColors.black),              
+              
+            )
+          : Text(label),
     );
   }
 

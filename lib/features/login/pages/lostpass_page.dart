@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/features/signup/controllers/signup_controller.dart';
-import 'package:flutter_application_1/shared/app_text_style.dart';
-import 'package:flutter_application_1/shared/widgets/__password_rule.dart';
-import 'package:flutter_application_1/shared/widgets/app_check_box.dart';
 import 'package:flutter_application_1/shared/widgets/app_elevated_button.dart';
 import 'package:flutter_application_1/shared/widgets/app_text_field.dart';
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 
 class LostpassPage extends StatefulWidget {
   const LostpassPage({super.key});
@@ -16,17 +13,15 @@ class LostpassPage extends StatefulWidget {
 }
 
 class _LostpassPageState extends State<LostpassPage> {
-  SignupController signupController = SignupController();
-
-  @override
-  initState() {
-    super.initState();
-  }
+  final RegExp _emailRegex = RegExp(
+    r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+  );
+  bool _isEmailValid = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('')),
+      appBar: AppBar (centerTitle: true, title: const Text('Recuperar Senha'),),
 
       body: SafeArea(
         //child: SingleChildScrollView(
@@ -40,20 +35,20 @@ class _LostpassPageState extends State<LostpassPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   SizedBox(height: 24),
-                  Center(
+                  /*Center(
                     child: Text(
                       'Recuperar Senha',
                       style: AppTextStyle.title,
                       textAlign: TextAlign.center,
                     ),
-                  ),
+                  ),*/
                   SizedBox(height: 8),
                   
                   AppTextField(
                     hintText: 'email@dominio.com',
                     onChanged: (value) {
                       setState(() {
-                        signupController.setEmail(value);
+                        _isEmailValid = _emailRegex.hasMatch(value.trim());
                       });
                     },
                   ),
@@ -62,7 +57,14 @@ class _LostpassPageState extends State<LostpassPage> {
                   
                   AppElevatedButton(
                     label: 'Continuar',
-                    onPressed: signupController.isActiveButton? () {} : null,
+                    onPressed: _isEmailValid ? () {AnimatedSnackBar.rectangle(
+'Success',
+  'This is a success snack bar',
+  type: AnimatedSnackBarType.success,
+  brightness: Brightness.light,
+).show(
+  context,
+);} : null,
                     type: ButtonType.filled,
                   ),
                   SizedBox(height: 16),

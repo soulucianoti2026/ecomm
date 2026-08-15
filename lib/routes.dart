@@ -6,7 +6,7 @@ import 'package:flutter_application_1/features/login/pages/lostpass_page.dart';
 class AppRoutes {
   static final Map<String, WidgetBuilder> routes = {
     LoginPage.route: (contex) => LoginPage(),
-    //SignupPage.route: (contex) => SignupPage(),
-    //LostpassPage.route: (contex) => LostpassPage(),
+    SignupPage.route: (contex) => SignupPage(),
+    LostpassPage.route: (contex) => LostpassPage(),
   };
 }
