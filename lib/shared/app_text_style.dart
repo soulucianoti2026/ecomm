@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/shared/app_colors.dart';
+import 'package:more_devs_do_zero/shared/app_colors.dart';
 
 //Classe responsável por armazenar os estilos de texto do app
 class AppTextStyle {

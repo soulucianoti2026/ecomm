@@ -37,8 +37,8 @@ class SignupController {
     changeActiveButton();
   }
 
-   void setConfirmarSenha(String ConfirmarsenhaParam) {
-    confirmarSenha = ConfirmarsenhaParam;
+   void setConfirmarSenha(String ConfirmarSenhaParam) {
+    confirmarSenha = ConfirmarSenhaParam;
     changeActiveButton();
   }
 

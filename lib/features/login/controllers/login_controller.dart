@@ -5,8 +5,7 @@ class LoginController {
   String email = '';
   String senha = '';
   bool isActiveButton = false;
-  
-
+  bool isLoading = false;
   
 String? get emailError {
 if (email.trim().isEmpty || _emailRegex.hasMatch(email.trim())) return null;
@@ -32,5 +31,11 @@ return 'E-mail invalido';}
 
   void changeActiveCheckBox() {
     isActiveCheckBox = !isActiveCheckBox;
+  }
+
+
+Future<void> login() async {
+    //Simula chamada da API
+    await Future.delayed(const Duration(seconds: 2));
   }
 }

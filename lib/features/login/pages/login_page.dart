@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/features/login/controllers/login_controller.dart';
-import 'package:flutter_application_1/features/login/pages/lostpass_page.dart';
-import 'package:flutter_application_1/features/signup/pages/signup_page.dart';
-import 'package:flutter_application_1/shared/app_text_style.dart';
-import 'package:flutter_application_1/shared/widgets/app_check_box.dart';
-import 'package:flutter_application_1/shared/widgets/app_elevated_button.dart';
-import 'package:flutter_application_1/shared/widgets/app_text_field.dart';
+import 'package:more_devs_do_zero/features/login/controllers/login_controller.dart';
+import 'package:more_devs_do_zero/features/lostpass/pages/lostpass_page.dart';
+import 'package:more_devs_do_zero/features/signup/pages/signup_page.dart';
+import 'package:more_devs_do_zero/shared/app_text_style.dart';
+import 'package:more_devs_do_zero/shared/widgets/app_check_box.dart';
+import 'package:more_devs_do_zero/shared/widgets/app_elevated_button.dart';
+import 'package:more_devs_do_zero/shared/widgets/app_text_field.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -22,6 +22,18 @@ class _LoginPageState extends State<LoginPage> {
   @override
   initState() {
     super.initState();
+  }
+Future<void> _handleLogin() async {
+    //futuramente não será necessário o setState, pois a tela será
+    //reconstruida com o provider
+    setState(() {
+      loginController.isLoading = true;
+    });
+
+    await loginController.login();
+    setState(() {
+      loginController.isLoading = false;
+    });
   }
 
   @override
@@ -83,7 +95,8 @@ class _LoginPageState extends State<LoginPage> {
                     alignment: AlignmentGeometry.centerRight,
                     child: TextButton(
                       onPressed: () => {
-                        Navigator.push(context,MaterialPageRoute(builder: (context) => LostpassPage())),
+                        Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LostPage())),
                       },
                       child: Text(
                         'Esqueci minha senha',
@@ -93,8 +106,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   AppElevatedButton(
                     label: 'Entrar',
+                    isLoading: loginController.isLoading,
                     onPressed: loginController.isActiveButton
-                        ? () => {print('cliquei em entrar')}
+                        ? _handleLogin
                         : null,
                     type: ButtonType.filled,
                   ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/features/login/pages/login_page.dart';
-import 'package:flutter_application_1/routes.dart';
+import 'package:more_devs_do_zero/features/login/pages/login_page.dart';
+import 'package:more_devs_do_zero/routes.dart';
 
 void main() {
   runApp(const MyApp());

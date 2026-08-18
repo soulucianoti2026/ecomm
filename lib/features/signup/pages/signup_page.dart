@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/features/signup/controllers/signup_controller.dart';
-import 'package:flutter_application_1/shared/app_text_style.dart';
-import 'package:flutter_application_1/shared/widgets/__password_rule.dart';
-import 'package:flutter_application_1/shared/widgets/app_check_box.dart';
-import 'package:flutter_application_1/shared/widgets/app_elevated_button.dart';
-import 'package:flutter_application_1/shared/widgets/app_text_field.dart';
+import 'package:more_devs_do_zero/features/signup/controllers/signup_controller.dart';
+import 'package:more_devs_do_zero/shared/app_text_style.dart';
+import 'package:more_devs_do_zero/shared/widgets/__password_rule.dart';
+import 'package:more_devs_do_zero/shared/widgets/app_check_box.dart';
+import 'package:more_devs_do_zero/shared/widgets/app_elevated_button.dart';
+import 'package:more_devs_do_zero/shared/widgets/app_text_field.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});

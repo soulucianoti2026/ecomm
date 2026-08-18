@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/shared/app_colors.dart';
-import 'package:flutter_application_1/shared/app_text_style.dart';
+import 'package:more_devs_do_zero/shared/app_colors.dart';
+import 'package:more_devs_do_zero/shared/app_text_style.dart';
 
 enum ButtonType { filled, outlined }
 
@@ -8,28 +8,31 @@ class AppElevatedButton extends StatelessWidget {
   const AppElevatedButton({
     super.key,
     required this.label,
-    this.onPressed,
     required this.type,
+    this.onPressed,
     this.backgroundColor,
+    this.isLoading = false,
   });
 
   final String label;
   final VoidCallback? onPressed;
   final ButtonType type;
   final Color? backgroundColor;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onPressed,
+      onPressed: isLoading ? null : onPressed,
       style: _getStyle(),
-      child: isloading? 
-              Padding(
-              padding: const EdgeInsets.all(8),
+      child: isLoading
+          ? const SizedBox(
               width: 20,
               height: 20,
-              child: CircularProgressIndicator(color: AppColors.black),              
-              
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: AppColors.black,
+              ),
             )
           : Text(label),
     );
@@ -39,7 +42,7 @@ class AppElevatedButton extends StatelessWidget {
     switch (type) {
       case ButtonType.filled:
         return ElevatedButton.styleFrom(
-          minimumSize: Size.fromHeight(48),
+          minimumSize: const Size.fromHeight(48),
           foregroundColor: AppColors.white,
           backgroundColor: backgroundColor ?? AppColors.black,
           textStyle: AppTextStyle.buttonLabel,
@@ -49,7 +52,7 @@ class AppElevatedButton extends StatelessWidget {
         );
       case ButtonType.outlined:
         return ElevatedButton.styleFrom(
-          minimumSize: Size.fromHeight(48),
+          minimumSize: const Size.fromHeight(48),
           foregroundColor: AppColors.black,
           backgroundColor: backgroundColor ?? AppColors.white,
           textStyle: AppTextStyle.buttonLabel,
@@ -60,14 +63,5 @@ class AppElevatedButton extends StatelessWidget {
           ),
         );
     }
-  }
-}
-
-class isActiveCheckBox extends StatelessWidget {
-  const isActiveCheckBox({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Checkbox(value: true, onChanged: (value) {});
   }
 }
