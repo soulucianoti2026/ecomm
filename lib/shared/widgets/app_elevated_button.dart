@@ -8,8 +8,8 @@ class AppElevatedButton extends StatelessWidget {
   const AppElevatedButton({
     super.key,
     required this.label,
-    required this.type,
     this.onPressed,
+    required this.type,
     this.backgroundColor,
     this.isLoading = false,
   });
@@ -26,12 +26,14 @@ class AppElevatedButton extends StatelessWidget {
       onPressed: isLoading ? null : onPressed,
       style: _getStyle(),
       child: isLoading
-          ? const SizedBox(
-              width: 20,
+          ? SizedBox(
               height: 20,
+              width: 20,
               child: CircularProgressIndicator(
                 strokeWidth: 2,
-                color: AppColors.black,
+                color: type == ButtonType.filled
+                    ? AppColors.white
+                    : AppColors.black,
               ),
             )
           : Text(label),
@@ -42,7 +44,7 @@ class AppElevatedButton extends StatelessWidget {
     switch (type) {
       case ButtonType.filled:
         return ElevatedButton.styleFrom(
-          minimumSize: const Size.fromHeight(48),
+          minimumSize: Size.fromHeight(48),
           foregroundColor: AppColors.white,
           backgroundColor: backgroundColor ?? AppColors.black,
           textStyle: AppTextStyle.buttonLabel,
@@ -52,7 +54,7 @@ class AppElevatedButton extends StatelessWidget {
         );
       case ButtonType.outlined:
         return ElevatedButton.styleFrom(
-          minimumSize: const Size.fromHeight(48),
+          minimumSize: Size.fromHeight(48),
           foregroundColor: AppColors.black,
           backgroundColor: backgroundColor ?? AppColors.white,
           textStyle: AppTextStyle.buttonLabel,

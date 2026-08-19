@@ -1,34 +1,19 @@
 class SignupController {
-  final RegExp _specialCharacterRegex = RegExp(r'[^A-Za-z0-9]');
-  final RegExp _uppercaseRegex = RegExp(r'[A-Z]');
-  final RegExp _lowercaseRegex = RegExp(r'[a-z]');
-
-  String email = '';
-  String senha = '';
-  String nome = '';
-  String confirmarSenha = '';
   bool isActiveCheckBox = false;
+  String email = '';
+  String nome = '';
+  String senha = '';
+  String confirmarSenha = '';
   bool isActiveButton = false;
+  bool isLoading = false;
 
-  bool get hasMinimumLength => senha.length >= 6;
-  bool get hasSpecialCharacter => _specialCharacterRegex.hasMatch(senha);
-  bool get hasUppercaseLetter => _uppercaseRegex.hasMatch(senha);
-  bool get hasLowercaseLetter => _lowercaseRegex.hasMatch(senha);
-  bool get passwordsMatch => senha.isNotEmpty && senha == confirmarSenha;
-  bool get isPasswordValid =>
-      hasMinimumLength &&
-      hasSpecialCharacter &&
-      hasUppercaseLetter &&
-      hasLowercaseLetter &&
-      passwordsMatch;
-  
-   void setNome(String nomeParam) {
-    nome = nomeParam;
-    changeActiveButton();
-  }
-  
   void setEmail(String emailParam) {
     email = emailParam;
+    changeActiveButton();
+  }
+
+  void setNome(String nomeParam) {
+    nome = nomeParam;
     changeActiveButton();
   }
 
@@ -37,23 +22,48 @@ class SignupController {
     changeActiveButton();
   }
 
-   void setConfirmarSenha(String ConfirmarSenhaParam) {
-    confirmarSenha = ConfirmarSenhaParam;
+  void setConfirmarSenha(String confirmarSenhaParam) {
+    confirmarSenha = confirmarSenhaParam;
     changeActiveButton();
   }
 
-
+  List<Map<String, bool>> getPasswordRequirements() {
+    return [
+      {'Mínimo de 6 caracteres': minSeisCaracteres},
+      {'No mínimo um caracter especial': possuiCaractereEspecial},
+      {'No mínimo uma letra maiúscula': possuiLetraMaiuscula},
+      {'No mínimo uma letra minúscula': possuiLetraMinuscula},
+      {'Senhas coincidem': senhasCoincidentes},
+    ];
+  }
 
   void changeActiveButton() {
     isActiveButton =
         email.trim().isNotEmpty &&
         nome.trim().isNotEmpty &&
-        isPasswordValid &&
-        isActiveCheckBox;
+        senha.trim().isNotEmpty &&
+        confirmarSenha.trim().isNotEmpty &&
+        isActiveCheckBox &&
+        minSeisCaracteres &&
+        possuiCaractereEspecial &&
+        possuiLetraMaiuscula &&
+        possuiLetraMinuscula &&
+        senhasCoincidentes;
   }
 
   void changeActiveCheckBox() {
     isActiveCheckBox = !isActiveCheckBox;
     changeActiveButton();
   }
+
+  Future<void> signUp() async {
+    await Future.delayed(Duration(seconds: 2));
+  }
+
+  bool get possuiLetraMaiuscula => senha.contains(RegExp(r'[A-Z]'));
+  bool get possuiLetraMinuscula => senha.contains(RegExp(r'[a-z]'));
+  bool get senhasCoincidentes => senha == confirmarSenha && senha.isNotEmpty;
+  bool get minSeisCaracteres => senha.length >= 6;
+  bool get possuiCaractereEspecial =>
+      senha.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
 }

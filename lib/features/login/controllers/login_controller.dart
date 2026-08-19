@@ -1,19 +1,27 @@
 class LoginController {
-  final RegExp _emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
-  final RegExp _senhaRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+  final RegExp _emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+  final int _caracterMinimoSenha = 6;
+
   bool isActiveCheckBox = false;
   String email = '';
   String senha = '';
   bool isActiveButton = false;
   bool isLoading = false;
-  
-String? get emailError {
-if (email.trim().isEmpty || _emailRegex.hasMatch(email.trim())) return null;
-return 'E-mail invalido';}
 
-String? get senhaError {
-if (senha.trim().isEmpty || _senhaRegex.hasMatch(senha.trim())) return null;
-return 'E-mail invalido';}
+  bool get isEmailValid => _emailRegex.hasMatch(email.trim());
+  bool get isSenhaValid => senha.trim().length >= _caracterMinimoSenha;
+
+  String? get emailError {
+    if (email.trim().isEmpty || isEmailValid) return null;
+    return 'E-mail inválido';
+  }
+
+  String? get senhaError {
+    if (senha.isEmpty || isSenhaValid) {
+      return null;
+    }
+    return 'E-mail inválido';
+  }
 
   void setEmail(String emailParam) {
     email = emailParam;
@@ -26,16 +34,23 @@ return 'E-mail invalido';}
   }
 
   void changeActiveButton() {
-    isActiveButton = email.trim().isNotEmpty && senha.trim().isNotEmpty;
+    isActiveButton = isEmailValid && isSenhaValid;
   }
 
   void changeActiveCheckBox() {
     isActiveCheckBox = !isActiveCheckBox;
   }
 
-
-Future<void> login() async {
+  Future<void> login() async {
     //Simula chamada da API
     await Future.delayed(const Duration(seconds: 2));
+    print('Login realizado com sucesso');
+  }
+
+  String? validateEmail(String? value) {
+    if (_emailRegex.hasMatch(email)) {
+      return null;
+    }
+    return 'E-mail inválido';
   }
 }

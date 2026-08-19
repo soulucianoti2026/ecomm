@@ -1,4 +1,4 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 
 class AppCheckBox extends StatelessWidget {
   const AppCheckBox({super.key, required this.value, this.onChanged});

@@ -6,14 +6,14 @@ class AppTextField extends StatefulWidget {
     super.key,
     required this.hintText,
     this.obscureText = false,
-    this.onChanged, 
-    this.errorText,
+    this.onChanged,
+    this.validator,
   });
 
   final String hintText;
   final bool obscureText;
   final Function(String)? onChanged;
-  final String? errorText;
+  final String? Function(String?)? validator;
 
   @override
   State<AppTextField> createState() => _AppTextFieldState();
@@ -35,9 +35,10 @@ class _AppTextFieldState extends State<AppTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       onChanged: widget.onChanged,
       obscureText: isObscure,
+      validator: widget.validator,
       decoration: InputDecoration(
         suffixIcon: widget.obscureText
             ? IconButton(
@@ -51,6 +52,7 @@ class _AppTextFieldState extends State<AppTextField> {
             : null,
 
         hintText: widget.hintText,
+
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
           borderSide: BorderSide(color: AppColors.grey100),

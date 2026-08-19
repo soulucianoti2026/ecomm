@@ -38,10 +38,10 @@ dependencies:
   animated_snack_bar: ^0.4.0
 
 flutter_native_splash:
- color: "#FFFFFF"
- image: "assets/images/logo.png"
- color_dark: "#FFFFFF"
- android_12:
+  color: "#FFFFFF"
+  image: "assets/images/logo.png"
+  color_dark: "#FFFFFF"
+  android_12:
     # background color
     color: "#42a5f5"
     # color_dark: "#042a49"
@@ -52,17 +52,14 @@ flutter_native_splash:
     # with background: 960×960 px (fit within circle 640px in diameter)    
     # without background: 1152×1152 px (fit within circle 768px in diameter)
     # ensure that the most important design elements of your image are placed within a circular area 
-    image: assets/images/    
+    image: assets/images/logo.png
     # image_dark: assets/images/logo/logo-splash2.png  
 
     # center-logo background color
     icon_background_color: "#111111"
     # icon_background_color_dark: "#eeeeee"
 
-    # branding:
-    # The branding image dimensions must be 800x320 px.
-    #branding:      assets/dart.png      
-    #branding_dark: assets/dart_dark.png 
+
 
 dev_dependencies:
   flutter_test:
@@ -80,16 +77,14 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-  assets:
-    - assets/images/
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
-
-
+  assets:
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
